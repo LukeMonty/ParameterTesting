@@ -42,6 +42,7 @@ public class ParameterSteps {
 	@After
 	public void tearDown() {
 		driver.quit();
+		ParameterTest.report.endTest(test);
 	}
 
 	@Given("^I go to \"([^\"]*)\" website$")
