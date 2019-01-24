@@ -28,7 +28,7 @@ public class ParameterSteps {
 
 	BingHomePage home;
 	BingResultsPage results;
-	
+
 	private String argToResults = "";
 
 	@Before
@@ -47,8 +47,7 @@ public class ParameterSteps {
 
 	@Given("^I go to \"([^\"]*)\" website$")
 	public void i_go_to_website(String arg1) {
-		
-		
+
 		driver.get(arg1);
 		test.log(LogStatus.INFO, "Go to URL: " + arg1);
 	}
@@ -64,13 +63,13 @@ public class ParameterSteps {
 	@Then("^I am taken to a list of data for that search$")
 	public void i_am_taken_to_a_list_of_data_for_that_search() {
 		results = PageFactory.initElements(driver, BingResultsPage.class);
-		
-		
-		
 
-		test.log(LogStatus.PASS, "Success: Found correct results");
-		assertTrue(results.checkSearchResult(argToResults));
-		
+		if (!results.checkSearchResult(argToResults)) {
+			test.log(LogStatus.FAIL, "FAIL: Wrong results");
+		} else {
+			test.log(LogStatus.PASS, "Success: Found correct results");
+			assertTrue(results.checkSearchResult(argToResults));
+		}
 	}
 
 }
